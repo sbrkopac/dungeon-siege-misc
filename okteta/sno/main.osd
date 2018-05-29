@@ -18,16 +18,17 @@
             <primitive type="uint32" name="faces" />
             <primitive type="uint32" name="textures" />
 
-            <struct name="bbox (min)">
-                <primitive type="float" name="x" />
-                <primitive type="float" name="y" />
-                <primitive type="float" name="z" />
-            </struct>
-
-            <struct name="bbox (max)">
-                <primitive type="float" name="x" />
-                <primitive type="float" name="y" />
-                <primitive type="float" name="z" />
+            <struct name="bounding box">
+                <struct name="min">
+                    <primitive type="float" name="x" />
+                    <primitive type="float" name="y" />
+                    <primitive type="float" name="z" />
+                </struct>
+                <struct name="max">
+                    <primitive type="float" name="x" />
+                    <primitive type="float" name="y" />
+                    <primitive type="float" name="z" />
+                </struct>
             </struct>
 
             <primitive type="uint32" name="unk1" />
@@ -55,8 +56,8 @@
                 <primitive type="float" name="px" />
                 <primitive type="float" name="py" />
                 <primitive type="float" name="pz" />
+                <string encoding="ASCII" name="iunno" />
             </struct>
-            <!-- TODO: read a string -->
         </array>
 
         <!-- doors -->
@@ -175,7 +176,7 @@
             </array>
 
             <primitive type="uint32" name="maybeSomeCountOrBinaryIndicator" />
-            <primitive type="uint8" name="unkOrAlignBit" />
+            <primitive type="uint32" name="anotherTriangleCount" />
 
             <array name="optionalSection" length="maybeSomeCountOrBinaryIndicator">
                 <struct name="blah">
@@ -194,12 +195,12 @@
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
                                 </struct>
-                                <struct name="a">
+                                <struct name="b">
                                     <primitive type="float" name="x" />
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
                                 </struct>
-                                <struct name="a">
+                                <struct name="c">
                                     <primitive type="float" name="x" />
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
@@ -212,12 +213,12 @@
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
                                 </struct>
-                                <struct name="a">
+                                <struct name="b">
                                     <primitive type="float" name="x" />
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
                                 </struct>
-                                <struct name="a">
+                                <struct name="c">
                                     <primitive type="float" name="x" />
                                     <primitive type="float" name="y" />
                                     <primitive type="float" name="z" />
@@ -229,282 +230,55 @@
                 </struct>
             </array>
 
-            <!-- <primitive type="uint32" name="anotherCountOfCrazyStructs" /> -->
+            <array name="anotherTriangleSet" length="anotherTriangleCount">
+                <struct name="triangleWithNormal">
+                    <struct name="a">
+                        <primitive type="float" name="x" />
+                        <primitive type="float" name="y" />
+                        <primitive type="float" name="z" />
+                    </struct>
+                    <struct name="b">
+                        <primitive type="float" name="x" />
+                        <primitive type="float" name="y" />
+                        <primitive type="float" name="z" />
+                    </struct>
+                    <struct name="c">
+                        <primitive type="float" name="x" />
+                        <primitive type="float" name="y" />
+                        <primitive type="float" name="z" />
+                    </struct>
+                    <struct name="normal">
+                        <primitive type="float" name="x" />
+                        <primitive type="float" name="y" />
+                        <primitive type="float" name="z" />
+                    </struct>
+                </struct>
+            </array>
+
+            <struct name="bounding box">
+                <struct name="min">
+                    <primitive type="float" name="x" />
+                    <primitive type="float" name="y" />
+                    <primitive type="float" name="z" />
+                </struct>
+                <struct name="max">
+                    <primitive type="float" name="x" />
+                    <primitive type="float" name="y" />
+                    <primitive type="float" name="z" />
+                </struct>
+            </struct>
+
+            <primitive type="uint8" name="prollyJunkPossiblyAnIndicactor" />
+
+            <primitive type="uint16" name="anotherCountOfShorts" />
+            <array name="moreShorts" length="anotherCountOfShorts">
+                <primitive type="uint16" name="value" />
+            </array>
+
+            <primitive type="uint8" name="prollyEmptyByte" />
 
         </struct>
 
     </struct>
 
-<!--
-
-<enumDef name="SignatureEnum" type="uint16" >
-   <entry name="'BM'" value="19778" />
-</enumDef>
-
-<enumDef name="MustBeZeroUInt16Enum" type="uint16">
-   <entry name="0" value="0" />
-</enumDef>
-
-<enumDef name="MustBeZeroUInt32Enum" type="uint32">
-   <entry name="0" value="0" />
-</enumDef>
-
-<enumDef name="CompressionTypeEnum" type="uint32">
-   <entry name="None" value="0" />
-   <entry name="RLE 8bpp" value="1" />
-   <entry name="RLE 4bpp" value="2" />
-   <entry name="Bit field" value="3" />
-   <entry name="JPEG" value="4" />
-   <entry name="PNG" value="5" />
-</enumDef>
-
-<enumDef name="HeaderTypeEnum" type="uint32">
-   <entry name="v1" value="12" />
-   <entry name="v2" value="64" />
-   <entry name="v3" value="40" />
-   <entry name="v4" value="52" />
-   <entry name="v5" value="56" />
-   <entry name="v6" value="108" />
-   <entry name="v7" value="124" />
-</enumDef>
-
-<enumDef name="PlanesEnum" type="uint16" >
-   <entry name="1" value="1" />
-</enumDef>
-
-<enumDef name="BitCountEnum" type="uint16" >
-   <entry name="specified by JPEG or PNG" value="0" />
-   <entry name="monochrome" value="1" />
-   <entry name="16 colors" value="4" />
-   <entry name="256 colors" value="8" />
-   <entry name="65_536 colors" value="16" />
-   <entry name="16_777_216 colors" value="24" />
-   <entry name="4_294_967_296 colors" value="32" />
-</enumDef>
-
-<enumDef name="ColorSpaceEnum" type="uint32" >
-   <entry name="CALIBRATED_RGB" value="0" />
-   <entry name="sRGB" value="1" />
-   <entry name="WINDOWS_COLOR_SPACE" value="2" />
-   <entry name="PROFILE_LINKED" value="3" />
-   <entry name="PROFILE_EMBEDDED" value="4" />
-</enumDef>
-
-<enumDef name="IntentEnum" type="uint32" >
-   <entry name="GM_ABS_COLORIMETRIC" value="8" />
-   <entry name="GM_BUSINESS" value="1" />
-   <entry name="GM_GRAPHICS" value="2" />
-   <entry name="GM_IMAGES" value="4" />
-</enumDef>
-
-<struct name="BMP (human readable names)" >
-
-
-
-<struct name="file header" >
-   <enum type="uint16" name="signature" enum="SignatureEnum" />
-   <primitive type="uint32" name="file size" />
-   <enum type="uint16" name="reserved 1" enum="MustBeZeroUInt16Enum" />
-   <enum type="uint16" name="reserved 2" enum="MustBeZeroUInt16Enum" />
-   <primitive type="uint32" name="data offset" />
-</struct>
-
-
-
-<union name="data headers">
-
-<enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-
-<struct name="v1 (12 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="uint16" name="width, pixels" />
-   <primitive type="uint16" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-</struct>
-
-<struct name="v2 (64 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="uint32" name="width, pixels" />
-   <primitive type="uint32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum type="uint32" name="compression" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="uint32" name="horizontal resolution, pixels/meter" />
-   <primitive type="uint32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-   <primitive type="uint16" name="WORD bc2ResUnit" />
-   <primitive type="uint16" name="WORD bc2Reserved" />
-   <primitive type="uint16" name="WORD bc2Orientation" />
-   <primitive type="uint16" name="WORD bc2Halftoning" />
-   <primitive type="uint32" name="DWORD bc2HalftoneSize1" />
-   <primitive type="uint32" name="DWORD bc2HalftoneSize2" />
-   <primitive type="uint32" name="DWORD bc2ColorSpace" />
-   <primitive type="uint32" name="DWORD bc2AppData" />
-</struct>
-
-<struct name="v3 (40 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="int32" name="width, pixels" />
-   <primitive type="int32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum name="compression" type="uint32" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="int32" name="horizontal resolution, pixels/meter" />
-   <primitive type="int32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-</struct>
-
-<struct name="v4 (52 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="int32" name="width, pixels" />
-   <primitive type="int32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum type="uint32" name="compression" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="int32" name="horizontal resolution, pixels/meter" />
-   <primitive type="int32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-   <array name="undocumented" length="6">
-      <primitive type="uint16" name="undocumented" />
-   </array>
-</struct>
-
-<struct name="v5 (56 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="int32" name="width, pixels" />
-   <primitive type="int32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum type="uint32" name="compression" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="int32" name="horizontal resolution, pixels/meter" />
-   <primitive type="int32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-   <array name="undocumented" length="8">
-      <primitive type="uint16" name="undocumented" />
-   </array>
-</struct>
-
-<struct name="v6 (108 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="int32" name="width, pixels" />
-   <primitive type="int32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum type="uint32" name="compression" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="int32" name="horizontal resolution, pixels/meter" />
-   <primitive type="int32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-   <primitive type="uint32" name="mask for red" />
-   <primitive type="uint32" name="mask for green" />
-   <primitive type="uint32" name="mask for blue" />
-   <primitive type="uint32" name="mask for alpha" />
-   <enum type="uint32" name="color space" enum="ColorSpaceEnum" />
-
-   <struct name="colors coordinates" >
-      <struct name="red" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-      <struct name="green" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-      <struct name="blue" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-   </struct>
-
-   <struct name="gamma red">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-   <struct name="gamma green">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-   <struct name="gamma blue">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-</struct>
-
-<struct name="v7 (124 bytes)" >
-   <enum type="uint32" name="data header size" enum="HeaderTypeEnum" />
-   <primitive type="int32" name="width, pixels" />
-   <primitive type="int32" name="height, pixels" />
-   <enum type="uint16" name="planes" enum="PlanesEnum" />
-   <enum type="uint16" name="colors" enum="BitCountEnum" />
-   <enum type="uint32" name="compression" enum="CompressionTypeEnum" />
-   <primitive type="uint32" name="image size, bytes" />
-   <primitive type="int32" name="horizontal resolution, pixels/meter" />
-   <primitive type="int32" name="vertical resolution, pixels/meter" />
-   <primitive type="uint32" name="number of used colors in color table" />
-   <primitive type="uint32" name="number of important colors" />
-   <primitive type="uint32" name="mask for red" />
-   <primitive type="uint32" name="mask for green" />
-   <primitive type="uint32" name="mask for blue" />
-   <primitive type="uint32" name="mask for alpha" />
-   <primitive type="uint32" name="color space" enum="ColorSpaceEnum" />
-
-   <struct name="colors coordinates" >
-      <struct name="red" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-      <struct name="green" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-      <struct name="blue" >
-         <primitive type="float" name="x" />
-         <primitive type="float" name="y" />
-         <primitive type="float" name="z" />
-      </struct>
-   </struct>
-
-   <struct name="gamma red">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-   <struct name="gamma green">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-   <struct name="gamma blue">
-      <primitive type="uint16" name="integer part" />
-      <primitive type="uint16" name="fractional part" />
-   </struct>
-
-   <enum type="uint32" name="intent" enum="IntentEnum" />
-   <primitive type="uint32" name="profile data offset from beginning of data header" />
-   <primitive type="uint32" name="profile data size, bytes" />
-   <enum type="uint32" name="reserved" enum="MustBeZeroUInt32Enum" />
-</struct>
-
-
-</union>
-
-
-</struct>
-
--->
-
 </data>
-
