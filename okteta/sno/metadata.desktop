@@ -1,0 +1,18 @@
+[Desktop Entry]
+Encoding=UTF-8
+Icon=x-shape-image
+Type=Service
+ServiceTypes=KPluginInfo
+
+Name=SNO
+Comment=sno file format
+
+X-KDE-PluginInfo-Author=aanderse
+X-KDE-PluginInfo-Name=sno
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=http://kde-files.org/index.php?xcontentmode=691
+X-KDE-PluginInfo-Category=structure
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-Ubuntu-Gettext-Domain=desktop_kdeutils
+
